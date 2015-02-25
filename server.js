@@ -16,20 +16,21 @@ var jwt = require('jwt-simple')
 //
 var config = require('./configure')
 //
+//parse application/json
 
 app.use(morgan('dev'))
 //log every request to the console
 app.use(bodyParser.json())
-//parse application/json
 
+app.use(require('./auth'))
 
-app.use(function (req, res, next) {
-	//need to decode JWT sessions for logged in users
-    if (req.headers['x-auth']) {
-        req.auth = jwt.decode(req.header('x-auth'), config.secret)
-    }
-    next() //call the next middleware function
-})
+// app.use(function (req, res, next) {
+// 	//need to decode JWT sessions for logged in users
+//     if (req.headers['x-auth']) {
+//         req.auth = jwt.decode(req.header('x-auth'), config.secret)
+//     }
+//     next() //call the next middleware function
+// })
 //ROUTES
 
 //delivering static content (index.html and js files...)
@@ -38,11 +39,11 @@ app.use('/',require('./controllers/static'))
 //posting new messages and displaying messages
 app.use('/api/messages',require('./controllers/api/messages'))
 
-//for registering new users
-app.use('/api/users',require('./controllers/api/users'))
-
 //for logging in as an existing user
 app.use('/api/sessions',require('./controllers/api/sessions'))
+
+//for registering new users
+app.use('/api/users',require('./controllers/api/users'))
 
 
 //SOCKETS

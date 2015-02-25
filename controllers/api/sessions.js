@@ -8,9 +8,11 @@ router.post('/', function(req,res,next) {
         .select('username')
         .exec(function(err,user) {
             if (err) {return next(err)}
-            if (!user) {return res.sendStatus(401)}
+            if (!user) {return res.sendStatus(401)} 
+        	//user does not exist
 
             var token = jwt.encode({username:user.username}, config.secret)
+            console.log(token)
             res.send(token)
         })
 })
