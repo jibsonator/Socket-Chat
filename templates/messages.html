@@ -1,0 +1,19 @@
+<div class='container'>
+    <h1> Messages </h1>
+    <form role="form">
+        <div class="form-group">
+            <div class="input-group">
+                <input ng-model="postBody" class="form-control">
+                    <span class="input-group-btn">
+                    <button ng-click="makeMessage()" class="btn btn-default"> Add Message </button>
+                    </span>
+            </div>
+        </div>
+    </form>
+    <ul class="list-group">
+        <li ng-repeat="message in messages | orderBy:'-date'" class="list-group-item">
+            <strong>@{{message.username}}</strong>
+            <span>{{message.body}}</span>
+        </li>
+    </ul>
+</div>
