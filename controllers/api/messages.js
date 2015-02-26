@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
         .sort('-date')
         .exec(function (err, messages) {
             if (err) { return next(err) }
-            res.json(posts)
+            res.json(messages)
         })
 })
 
@@ -20,9 +20,9 @@ router.post('/', function (req, res, next) {
     })
 
     console.log("got this far..")
-    message.save(function (err, post)
+    message.save(function (err,  message)
     {if (err) { return next(err) }
-        res.status(201).json(post)
+        res.status(201).json(message)
     })
 })
 
